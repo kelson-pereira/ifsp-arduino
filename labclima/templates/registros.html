@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block nav_registros %}active{% endblock %}
+{% block conteudo %}
+{% include 'navbar.html' with nav_registros='true' %}
+{% if messages %}
+    {% for message in messages %}
+        <div id="toast" class="toast position-absolute top-50 start-50 translate-middle {{ message.extra_tags }} border-0" data-bs-delay="1500" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ message }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+{% for registro in registros %}
+    {% include 'apagar.html' %}
+{% endfor %}
+<div class="d-flex w-100 flex-grow-1">
+    <div class="table-responsive w-100 px-4">
+        <table class="table text-nowrap align-middle table-hover border-white mb-0" style="--bs-body-bg: transparent !important;">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Nome da Estação</th>
+                    <th>Última Atualização</th>
+                    <th>Temperatura</th>
+                    <th>Umidade</th>
+                    <th>Pressão</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for registro in registros %}
+                <tr>
+                    <td><i role="button" class="bi bi-trash text-primary" style="font-size: 1.5rem;" data-bs-toggle="modal" data-bs-target="#apagarModal{{registro.ident}}"></i></td>
+                    <td>{{registro.nome}}</td>
+                    <td>{{registro.datahora|date:"Y-m-d H:i:s"}}</td>
+                    <td>{{registro.temperatura|stringformat:".1f°C"|default:"--"}}</td>
+                    <td>{{registro.umidade|stringformat:".1f%%"|default:"--"}}</td>
+                    <td>{{registro.pressao|stringformat:".d mbar"|default:"--"}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

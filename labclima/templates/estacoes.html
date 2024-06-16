@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block nav_estacoes %}active{% endblock %}
+{% block conteudo %}
+{% load static %}
+{% include 'navbar.html' with nav_estacoes='true' %}
+<div class="d-flex flex-wrap justify-content-center align-content-start flex-grow-1 px-4 gap-4" hx-get="." hx-target="#estacoes" hx-swap="innerHTML" hx-trigger="every 30s">
+    <div class="card shadow border-0 rounded" style="width: 18rem; height:8rem;">
+        <div class="card-body">
+            <div class="d-flex flex-column align-items-start">
+                <a target="_blank" href="{% url 'registros' %}">Como construir uma estação metereológica<i class="bi bi-box-arrow-up-right icon-link ms-1"></i></a>
+                <img width="52" height="36" class="d-block mt-2 me-2" src="{% static 'imagens/arduino.svg' %}">
+            </div>
+        </div>
+    </div>
+    {% for registro in registros %}
+    <div class="card shadow border-0 rounded" style="width: 18rem; height:8rem; background: linear-gradient(0deg, #77b5eb, #abd5e9);">
+        <div class="card-body">
+            <h5 class="card-title m-0 fs-5"><i class="bi bi-broadcast me-1"></i>{{registro.nome}}</h5>
+            <p class="card-text lh-sm m-0 mb-1 fw-lighter" style="font-size: 14px;">{{registro.datahora|timesince}} atrás</p>
+            <div class="d-flex justify-content-between align-items-end">
+                <div>
+                    <p class="card-text lh-sm m-0 fs-3 fw-light">{{registro.temperatura|stringformat:".1f°C"|default:"--"}}</p>
+                    <p class="card-text lh-sm fw-light" style="font-size: 12px;"><i class="bi bi-thermometer-half"></i><small>Temperatura</small></p>
+                </div>
+                <div>
+                    <p class="card-text lh-sm m-0 mb-1 fs-6 fw-light">{{registro.umidade|stringformat:".1f%%"|default:"--"}}</p>
+                    <p class="card-text lh-sm fw-light" style="font-size: 12px;"><i class="bi bi-droplet"></i><small>Umidade</small></p>
+                </div>
+                <div>
+                    <p class="card-text lh-sm m-0 mb-1 fs-6 fw-light">{{registro.pressao|stringformat:".d mbar"|default:"--"}}</p>
+                    <p class="card-text lh-sm fw-light" style="font-size: 12px;"><i class="bi bi-speedometer2 me-1"></i><small>Pressão</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% load static %}
+<div class="d-flex justify-content-center align-items-center my-3 gap-2">
+    <a class="navbar-brand" href="{% url 'estacoes' %}"><img style="vertical-align: top;" src="{% static 'imagens/labclima-logo.svg' %}"></a>
+    <div class="btn-group">
+        <a class="btn d-flex btn-outline-primary {% if nav_estacoes %}active{% endif %}" aria-current="page" href="{% url 'estacoes' %}"><i class="bi bi-broadcast"></i><span class="d-none d-sm-block ms-1">Estações</span></a>
+        <a class="btn d-flex btn-outline-primary {% if nav_registros %}active{% endif %}" aria-current="page" href="{% url 'registros' %}"><i class="bi bi-database-fill"></i></i><span class="d-none d-sm-block ms-1">Dados</span></a>
+    </div>
+    <span class="badge rounded-pill fw-normal text-bg-success">Últimos 7 dias</span>
+</div>

@@ -1,0 +1,40 @@
+<div class="modal fade" id="apagarModal{{registro.ident}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Apagar registros da estação {{registro.nome}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{% url 'apagar' %}" method="POST" novalidate>
+                {% csrf_token %}
+                <div class="modal-body">
+                    <p>Informe o CEP da estação para apagar o registro.</p>
+                    <div class="row g-3 align-items-center">
+                        <div class="col-auto">
+                          <label for="cep" class="col-form-label"><b>CEP:</b></label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="password" id="cep-{{registro.ident}}" name="cep" class="form-control" aria-describedby="CEP">
+                        </div>
+                        <div class="col-auto">
+                          <span class="form-text">
+                            Ex: 12345678 (somente números)
+                          </span>
+                        </div>
+                    </div>
+                    <input class="form-control" type="hidden" name="ident" id="ident-{{registro.nome}}" value="{{ registro.ident }}"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Apagar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var modal = document.getElementById("apagarModal{{registro.ident}}")
+    modal.addEventListener("shown.bs.modal", function () {
+        document.getElementById("telefone{{registro.ident}}").focus()
+    })
+</script>
