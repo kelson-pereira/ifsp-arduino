@@ -19,7 +19,7 @@
     <div class="card shadow border-0 rounded p-0 align-self-center mb-4" style="max-width:100%; width: 60rem; height:auto">
         <img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/mini-estacao-meteorologica.jpg' %}">
         <div class="card-body">
-            <p class="card-text fs-6 lh-sm text-center"><small>Figura 1: Mini estação meteorológica com Arduino<br>Fonte: Foto de autoria própria</small></p>
+            <p class="card-text fs-6 lh-sm text-center"><small>Figura 1: Demonstração da mini estação meteorológica com Arduino<br>Fonte: Foto de autoria própria</small></p>
         </div>
     </div>
     <p>Ao longo deste projeto, as seguintes habilidades serão desenvolvidas:</p>
@@ -169,8 +169,7 @@
     <p>Para carregar o código no Arduino instale no computador o Arduino IDE (<a target="_blank" href="https://support.arduino.cc/hc/en-us/articles/360019833020-Download-and-install-Arduino-IDE">support.arduino.cc</a>) e então configure a placa e a porta de comunicação. Após isto copie o código abaixo e faça o upload para o Arduino e voce terá uma mini estação meteorológica feita com Arduino!</p>
     
     <pre class="d-flex border-start border-4 border-info rounded-1 shadow border-0 p-0 align-self-center mb-4" style="max-width:100%; width: 60rem; height:auto; white-space: pre-wrap;">
-        <code class="w-100 language-c">#include &lt;SoftwareSerial.h&gt;
-#include &lt;Wire.h&gt;
+        <code class="w-100 language-c">#include &lt;Wire.h&gt;
 #include &lt;DHT.h&gt;
 #include &lt;Adafruit_Sensor.h&gt;
 #include &lt;Adafruit_BMP280.h&gt;
