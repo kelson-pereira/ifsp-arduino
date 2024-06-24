@@ -15,12 +15,6 @@ def estacoes(request):
     return render(request, 'estacoes.html', registros)
 
 # Salva o novo registro no banco de dados e apaga o antigo.
-# http://127.0.0.1:8000/registrar?nome=LAB-CLIMA-ARDUINO&cep=12242460&t=24.60&u=52.20&p=947.60
-# http://127.0.0.1:8000/registrar?nome=ESTAÇÃO ARDUINO 2&cep=12242460&t=24.3&u=53.7&p=1013
-# http://127.0.0.1:8000/registrar?nome=ESTAÇÃO ARDUINO 3&cep=12242460&t=21.1&u=55.5&p=1018
-# https://labclima-cdf9226ee1c5.herokuapp.com/registrar?nome=ESTAÇÃO ARDUINO 1&cep=12242460&t=22.8&u=64.2&p=1017
-# http://192.168.68.106:8000/registrar/?nome=LAB-CLIMA-ARDUINO&cep=12242460&t=25.60&u=55.00&p=1070&lab=clima
-
 def registrar(request):
     if request.method == "GET":
         lab = request.GET.get('lab')

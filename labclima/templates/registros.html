@@ -38,7 +38,7 @@
                     <td>{{registro.datahora|date:"Y-m-d H:i:s"}}</td>
                     <td>{{registro.temperatura|stringformat:".1f°C"|default:"--"}}</td>
                     <td>{{registro.umidade|stringformat:".1f%%"|default:"--"}}</td>
-                    <td>{{registro.pressao|stringformat:".d mbar"|default:"--"}}</td>
+                    <td>{{registro.pressao|stringformat:".1f mbar"|default:"--"}}</td>
                 </tr>
             {% endfor %}
             </tbody>
