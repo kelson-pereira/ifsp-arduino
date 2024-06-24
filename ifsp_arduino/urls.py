@@ -24,8 +24,9 @@ from django.conf import settings
 urlpatterns = [
     #path('admin/', admin.site.urls),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
-    path('', views.estacoes, name='estacoes'),
+    path('estacoes/', views.estacoes, name='estacoes'),
     path('registrar/', views.registrar, name='registrar'),
     path('registros/', views.registros, name='registros'),
     path('apagar/', views.apagar, name='apagar'),
+    path('', views.lab, name='lab'),
 ]

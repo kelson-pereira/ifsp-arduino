@@ -1,0 +1,335 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+{% load static %}
+{% include 'navbar.html' %}
+<div class="d-flex flex-column w-100 flex-grow-1 px-4">
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="easel-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8.473.337a.5.5 0 0 0-.946 0L6.954 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h1.85l-1.323 3.837a.5.5 0 1 0 .946.326L4.908 11H7.5v2.5a.5.5 0 0 0 1 0V11h2.592l1.435 4.163a.5.5 0 0 0 .946-.326L12.15 11H14a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H9.046z"/>
+        </symbol>
+        <symbol id="eye-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+        </symbol>
+    </svg>
+    <img width="78" height="54" class="d-block mb-2" src="{% static 'imagens/arduino.svg' %}">
+    <p class="fs-2 fw-semibold lh-sm mb-2">Construindo uma mini estação meteorológica com Arduino</p>
+    <p><small><i class="bi bi-calendar4 pe-1"></i>23/06/2024<i class="bi bi-person ps-3 pe-1"></i>Kelson Pereira</small></p>
+    <p>Este projeto didático tem como objetivo guiar alunos em sala de aula ou em laboratório na construção de uma mini estação meteorológica utilizando a plataforma de prototipagem de código aberto Arduino. Este dispositivo será capaz de medir parâmetros atmosféricos essenciais, como temperatura, umidade e pressão.</p>
+    <div class="card shadow border-0 rounded p-0 align-self-center mb-4" style="max-width:100%; width: 60rem; height:auto">
+        <img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/mini-estacao-meteorologica.jpg' %}">
+        <div class="card-body">
+            <p class="card-text fs-6 lh-sm text-center"><small>Figura 1: Mini estação meteorológica com Arduino<br>Fonte: Foto de autoria própria</small></p>
+        </div>
+    </div>
+    <p>Ao longo deste projeto, as seguintes habilidades serão desenvolvidas:</p>
+    <ul>
+        <li>Montagem de circuitos eletrônicos.</li>
+        <li>Programação básica em Arduino (linguagem C/C++).</li>
+        <li>Análise e interpretação de dados meteorológicos.</li>
+        <li>Trabalho em equipe e resolução de problemas práticos.</li>
+    </ul>
+    <p class="fs-4 fw-semibold lh-sm mt-4 mb-3">1. Materiais utilizados</p>
+    <p>A mini estação meteorológica é composta por sensores que capturam dados ambientais e por um microcontrolador Arduino Uno que processa essas informações. Utilizaremos o sensor DHT22 para medir temperatura e umidade, e o sensor BMP280 para medir a pressão atmosférica. Além disso, o projeto inclui a programação do Arduino por meio da linguagem C/C++ para ler os dados dos sensores e transferir para um servidor através do módulo Wi-Fi ESP8266 (ESP-01).</p>
+    <div class="d-flex flex-wrap justify-content-center align-content-start flex-grow-1 gap-4 mb-4">
+        <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
+            <img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/arduino-uno-r3.png' %}">
+            <div class="card-body">
+                <p class="card-text fs-6 lh-1 text-center"><small>Microcontrolador Arduino Uno<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/placa-arduino/placa-uno-r3">robocore.net</a></small></small></p>
+            </div>
+        </div>
+        <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
+            <img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/dht22.png' %}">
+            <div class="card-body">
+                <p class="card-text fs-6 lh-1 text-center"><small>Sensor DHT22 (temperatura e umidade)<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/sensor-ambiente/sensor-de-temperatura-e-umidade-dht22">robocore.net</a></small></small></p>
+            </div>
+        </div>
+        <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
+            <img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/bmp280.png' %}">
+            <div class="card-body">
+                <p class="card-text fs-6 lh-1 text-center"><small>Sensor BMP280 (temperatura e pressão)<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/sensor-ambiente/sensor-de-pressao-e-temperatura-bmp280">robocore.net</a></small></small></p>
+            </div>
+        </div>
+        <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
+            <img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/esp8266.png' %}">
+            <div class="card-body">
+                <p class="card-text fs-6 lh-1 text-center"><small>Módulo Wi-Fi ESP8266 (ESP-01)<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/wifi/modulo-wifi-esp8266">robocore.net</a></small></small></p>
+            </div>
+        </div>
+        <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
+            <img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/protoboard.jpg' %}">
+            <div class="card-body">
+                <p class="card-text fs-6 lh-1 text-center"><small>Protoboard para Arduino Uno<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/shields-arduino/arduino-shield-protoshield">robocore.net</a></small></small></p>
+            </div>
+        </div>
+        <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
+            <img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/leds.jpg' %}">
+            <div class="card-body">
+                <p class="card-text fs-6 lh-1 text-center"><small>LEDs difuso 5mm (vermelho e verde)<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/display-led/led-difuso-5mm-vermelho-10-unidades">robocore.net</a></small></small></p>
+            </div>
+        </div>
+        <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
+            <img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/jumpers.png' %}">
+            <div class="card-body">
+                <p class="card-text fs-6 lh-1 text-center"><small>Fios para conexões (jumpers)<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/cabo/jumpers-macho-femea-x40-unidades">robocore.net</a></small></small></p>
+            </div>
+        </div>
+        <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
+            <img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/cabo-usb-a-b.png' %}">
+            <div class="card-body">
+                <p class="card-text fs-6 lh-1 text-center"><small>Cabo USB tipo AB (Arduino)<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/cabo/cabo-usb-ab-30cm">robocore.net</a></small></small></p>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-warning d-flex align-items-start" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="32" height="32" role="img" aria-label="Info:"><use xlink:href="#easel-fill"/></svg>
+        Através deste projeto, os alunos terão a oportunidade de explorar conceitos fundamentais de física, eletrônica, programação e ciências de maneira prática e interativa. A construção da estação meteorológica não só proporcionará uma compreensão mais profunda sobre como os sensores funcionam, mas também permitirá que os alunos compreendam melhor os fenômenos meteorológicos e suas influências no nosso dia a dia.
+    </div>
+    <p class="fs-4 fw-semibold lh-sm mt-4 mb-3">2. Conhecendo o Arduino</p>
+    <p>O Arduino é uma plataforma de prototipagem eletrônica de código aberto que combina hardware e software para criar projetos interativos. Consiste em placas com microcontroladores que pode ser programado usando a linguagem de programação baseada em C/C++ através do um Ambiente de Desenvolvimento Integrado (IDE).</p>
+    <p>Com custo acessível, o Arduino é amplamente utilizado na educação, permitindo que pessoas de todos os níveis de conhecimento criem dispositivos que interagem com o ambiente através de sensores e atuadores como sistemas de automação residencial, sistemas de irrigação automática, sistemas de alarmes, dentre outros.</p>
+    <div class="alert alert-warning d-flex align-items-start" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="32" height="32" role="img" aria-label="Info:"><use xlink:href="#easel-fill"/></svg>
+        <span>Envolva os alunos para explorar outros projetos possíveis usando esta plataforma e então, apresente os recursos do Arduino Uno sendo seus principais componentes, conectores, portas, alimentação, LEDs, etc.</span>
+    </div>
+    <div class="card shadow border-0 rounded p-0 align-self-center mb-4" style="max-width:100%; width: 60rem; height:auto">
+        <img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/arduino-uno_bb.png' %}">
+        <div class="card-body">
+            <p class="card-text fs-6 lh-1 text-center"><small>Figura 1. <strong>Conhecendo o Arduino Uno</strong><br><small>Fonte: Imagem gerada a partir do simulador Fritzing</small></small></p>
+        </div>
+    </div>
+    <p class="fs-4 fw-semibold lh-sm mt-4 mb-3">3. Monitorando parâmetros atmosféricos</p>
+    <p>Conhecer os parâmetros atmosféricos traz diversos benefícios como prever o tempo, aumentar a produtividade na agricultura, garantir a segurança das operações aéreas e marítimas, desenvolver pesquisas científicas como no estudo das mudanças climáticas, e muito mais.</p>
+    <div class="alert alert-warning d-flex align-items-start" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="32" height="32" role="img" aria-label="Info:"><use xlink:href="#easel-fill"/></svg>
+        <span>Convide os alunos a dar exemplos da importância de conhecer parâmetros como temperatura e umidade no seu dia a dia.</span>
+    </div>
+    <p class="fs-4 fw-semibold lh-sm mt-4 mb-3">4. Montando o sensor DHT22</p>
+    <p>O sensor DHT22, também conhecido como sensor AM2302, é um sensor que faz a medição da temperatura e da umidade com alta precisão, sendo que é permitido fazer leituras de temperaturas entre -40º a 80º Celsius e umidade entre 0 a 100%. <small>Fonte: Curto Circuito (<a target="_blank" href="https://curtocircuito.com.br/sensor-temperatura-dht22.html">curtocircuito.com.br</a>).</small></p>
+    <div class="alert alert-warning d-flex align-items-start" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="32" height="32" role="img" aria-label="Info:"><use xlink:href="#easel-fill"/></svg>
+        <span>Conduza os alunos para realizar a montagem do sensor conforme o esquema acima. Use a protoboard para facilitar a conexão entre o sensor, o resistor e as portas do Arduino através dos fios de conexão.</span>
+    </div>
+    <div class="card shadow border-0 rounded p-0 align-self-center mb-4" style="max-width:100%; width: 60rem; height:auto">
+        <img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/arduino-dht22_bb.png' %}">
+        <div class="card-body">
+            <p class="card-text fs-6 lh-1 text-center"><small><strong>Montagem do sensor DHT22 com Arduino Uno</strong><br><small>Fonte: Imagem gerada a partir do simulador Fritzing</small></small></p>
+        </div>
+    </div>
+    <div class="border-start border-4 border-warning rounded-1 bg-white p-3 ">
+        <span>Observe a alimentação do sensor DHT22 no pino <kbd>VCC</kbd> com <kbd>5V</kbd> e do resistor <kbd>R1</kbd> de <kbd>4.7kΩ</kbd> em conjunto com pino <kbd>DATA</kbd> conectando ao Arduino na porta digital <kbd>2</kbd>.</span>
+    </div>
+    <p class="fs-4 fw-semibold lh-sm mt-4 mb-3">5. Montando o sensor BPM280</p>
+    <p>O sensor BMP280 tem como objetivo principal medir a pressão atmosférica, determinando com precisão a altitude de um ambiente, além de ser capaz de medir a temperatura. A leituras de pressões são de 300 à 1100 hPa e temperatura entre 0°C à 65°C. <small>Fonte: Curto Circuito (<a target="_blank" href="https://curtocircuito.com.br/sensor-de-pressao-bmp280.html">curtocircuito.com.br</a>).</small></p>
+    <div class="alert alert-warning d-flex align-items-start" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="32" height="32" role="img" aria-label="Info:"><use xlink:href="#easel-fill"/></svg>
+        <span>Conduza os alunos para realizar a montagem do sensor conforme o esquema abaixo. Use a protoboard para facilitar a conexão entre o sensor e as portas do Arduino através dos fios de conexão.</span>
+    </div>
+    <div class="card shadow border-0 rounded p-0 align-self-center mb-4" style="max-width:100%; width: 60rem; height:auto">
+        <img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/arduino-bmp280_bb.png' %}">
+        <div class="card-body">
+            <p class="card-text fs-6 lh-1 text-center"><small><strong>Montagem do sensor BMP280 com Arduino Uno</strong><br><small>Fonte: Imagem gerada a partir do simulador Fritzing</small></small></p>
+        </div>
+    </div>
+    <div class="border-start border-4 border-warning rounded-1 bg-white p-3 ">
+        <span>Observe a alimentação do sensor BMP280 no pino <kbd>VCC</kbd> com <kbd>3.3V</kbd> e na conexão dos pinos <kbd>SCL</kbd> e <kbd>SDA</kbd> conectando ao Arduino nas porta analógicas <kbd>A5</kbd> e <kbd>A4</kbd> respectivamente.</span>
+    </div>
+    <p class="fs-4 fw-semibold lh-sm mt-4 mb-3">6. Montando o módulo ESP8266 (ESP-01)</p>
+    <p>O módulo WiFi ESP8266 (ESP-01) é um módulo cujo a função é conectar projetos e sistemas na internet através da rede Wirelles, para que o projeto possa ser acessado, controlado e também adquirir informações de forma remota através do chip ESP8266. <small>Fonte: Curto Circuito (<a target="_blank" href="https://curtocircuito.com.br/modulo-wifi-esp8266-esp-01.html">curtocircuito.com.br</a>).</small></p>
+    <p>O ESP8266 (ESP-01) trabalha com as redes mais utilizadas atualmente (802.11 b/g/n), preparado para comunicação sem fio de baixa potência, operando com a rede Wi-Fi em frequência de 2.4GHz, possuindo suporte a WPA e WPA2.</p>
+    <div class="alert alert-warning d-flex align-items-start" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="32" height="32" role="img" aria-label="Info:"><use xlink:href="#easel-fill"/></svg>
+        <span>Conduza os alunos para realizar montagem a do módulo conforme o esquema acima. Use a protoboard para facilitar a conexão entre o módulo e as portas do Arduino através dos fios de conexão.</span>
+    </div>
+    <div class="card shadow border-0 rounded p-0 align-self-center mb-4" style="max-width:100%; width: 60rem; height:auto">
+        <img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/arduino-esp8266_bb.png' %}">
+        <div class="card-body">
+            <p class="card-text fs-6 lh-1 text-center"><small><strong>Montagem do módulo ESP8266 (ESP-01) com Arduino Uno</strong><br><small>Fonte: Imagem gerada a partir do simulador Fritzing</small></small></p>
+        </div>
+    </div>
+    <div class="border-start border-4 border-warning rounded-1 bg-white p-3 ">
+        <span>Observe a alimentação do módulo ESP8266 (ESP-01) nos pinos <kbd>VCC</kbd> e <kbd>CH_PD</kbd> com <kbd>3.3V</kbd> e a conexão dos pinos <kbd>TX</kbd> e <kbd>RX</kbd> conectando ao Arduino nas porta digitais <kbd>6</kbd> e <kbd>7</kbd> respectivamente.</span>
+    </div>
+    <p class="fs-4 fw-semibold lh-sm mt-4 mb-3">7. Montando os LEDs</p>
+    <p>O LED é um diodo emissor de luz que quando percorridos por uma corrente elétrica são capazes de emitir luz. Possui dois terminais polarizados chamados de anodo (positivo) e catodo (negativo), ou seja, a forma a qual está polarizado determina a passagem ou não de corrente elétrica, emitindo ou não luz. <small>Fonte: Mundo da Elétrica (<a target="_blank" href="https://www.mundodaeletrica.com.br/o-que-e-um-led/">www.mundodaeletrica.com.br</a>).</small></p>
+    <div class="alert alert-warning d-flex align-items-start" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="32" height="32" role="img" aria-label="Info:"><use xlink:href="#easel-fill"/></svg>
+        <span>Conduza os alunos para realizar montagem a do módulo conforme o esquema acima. Use a protoboard para facilitar a conexão entre o módulo e as portas do Arduino através dos fios de conexão.</span>
+    </div>
+    <div class="card shadow border-0 rounded p-0 align-self-center mb-4" style="max-width:100%; width: 60rem; height:auto">
+        <img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/arduino-estacao_bb.png' %}">
+        <div class="card-body">
+            <p class="card-text fs-6 lh-1 text-center"><small><strong>Montagem dos LEDs com Arduino Uno</strong><br><small>Fonte: Imagem gerada a partir do simulador Fritzing</small></small></p>
+        </div>
+    </div>
+    <div class="border-start border-4 border-warning rounded-1 bg-white p-3 ">
+        <span>Observe a alimentação dos LEDSs vermelho e verde nos terminais curtos em <kbd>GND</kbd> e dos terminais longos passando pelos resistors <kbd>R2</kbd> e <kbd>R3</kbd> de <kbd>220Ω</kbd> conectando ao Arduino nas portas digitais <kbd>4</kbd> e <kbd>5</kbd> respectivamente.</span>
+    </div>
+    <p class="fs-4 fw-semibold lh-sm mt-4 mb-3">8. Programando o Arduino</p>
+    <p>Para carregar o código no Arduino instale no computador o Arduino IDE (<a target="_blank" href="https://www.robocore.net/tutoriais/instalando-arduino-ide">robocore.net</a>) e então configure a placa e a porta de comunicação. Após isto copie o código abaixo e faça o upload para o Arduino e voce terá uma mini estação meteorológica feita com Arduino!</p>
+    
+    <pre class="d-flex border-start border-4 border-info rounded-1 shadow border-0 p-0 align-self-center mb-4" style="max-width:100%; width: 60rem; height:auto; white-space: pre-wrap;">
+        <code class="w-100 language-c">#include &lt;SoftwareSerial.h&gt;
+#include &lt;Wire.h&gt;
+#include &lt;DHT.h&gt;
+#include &lt;Adafruit_Sensor.h&gt;
+#include &lt;Adafruit_BMP280.h&gt;
+#include &lt;SoftwareSerial.h&gt;
+
+#define DHT_PINO 2
+#define DHT_TIPO DHT22
+#define RX 7
+#define TX 6
+
+SoftwareSerial AT(RX, TX);
+DHT dht(DHT_PINO, DHT_TIPO);
+Adafruit_BMP280 bmp;
+
+int LED_VM = 8;
+int LED_VD = 9;
+
+String SSID = "xxxxxxxxxx";
+String PASS = "xxxxxxxxxx";
+
+String SERVIDOR = "x.x.x.x";
+String PORTA = "xxxx";
+String ESTACAO = "LAB-XXXXX";
+String CEP = "xxxxxxxx";
+
+int AT_cmd_time;
+boolean AT_cmd_result = false; 
+const unsigned int writeInterval = 5000;
+
+void setup() {
+    Serial.begin(9600);
+    AT.begin(9600);
+    Serial.print("Iniciando ESP8266... ");
+    enviarComandoAT("AT", 5, "OK");
+    Serial.print("Definindo modo... ");
+    enviarComandoAT("AT+CWMODE=1", 5, "OK");
+    Serial.print("Conectando WiFi... ");
+    enviarComandoAT("AT+CWJAP=\""+ SSID +"\",\""+ PASS +"\"", 10, "OK");
+    Serial.print("Definindo conexao... ");
+    enviarComandoAT("AT+CIPMUX=0", 10, "OK");
+    pinMode(LED_VM, OUTPUT);
+    pinMode(LED_VD, OUTPUT);
+    dht.begin();
+    delay(2000);
+}
+
+void loop() {
+    bool enviar = true;
+    Serial.print("Lendo DHT22... ");
+    float u = dht.readHumidity();
+    float t = dht.readTemperature();
+    if (isnan(u) || isnan(t)) {
+        digitalWrite(LED_VM, HIGH);
+        Serial.println("Falhou");
+        enviar = false;
+        delay(2000);
+    } else {
+        digitalWrite(LED_VD, HIGH);
+        Serial.println("OK");
+        Serial.print("Temperatura: ");
+        Serial.print(t);
+        Serial.println("°C");
+        Serial.print("Umidade: ");
+        Serial.print(u);
+        Serial.println("%");
+    }
+    Serial.print("Iniciando BMP280... ");
+    if (!bmp.begin()) {
+        digitalWrite(LED_VM, HIGH);
+        Serial.println("Falhou");
+        enviar = false;
+        delay(2000);
+    } else {
+        digitalWrite(LED_VD, HIGH);
+        Serial.println("OK");
+    }
+    float t2 = bmp.readTemperature();
+    float p = bmp.readPressure() / 100;
+    Serial.print("Lendo BMP280... ");
+    if (isnan(t2) || isnan(p)) {
+        digitalWrite(LED_VM, HIGH);
+        Serial.println("Falhou");
+        enviar = false;
+        delay(2000);
+    } else {
+        digitalWrite(LED_VD, HIGH);
+        Serial.println("OK");
+        Serial.print("Temperatura: ");
+        Serial.print(t2);
+        Serial.println("°C");
+        Serial.print("Pressao: ");
+        Serial.print(p);
+        Serial.println("hPa");
+    }
+    if (enviar) {
+        enviarDados(t, u, p);
+    }
+    digitalWrite(LED_VM, LOW);
+    digitalWrite(LED_VD, LOW);
+}
+
+void enviarComandoAT(String AT_cmd, int AT_cmd_maxTime, char readReplay[]) {
+    while (AT_cmd_time < (AT_cmd_maxTime)) {
+    AT.println(AT_cmd);
+    if (AT.find(readReplay)) {
+        AT_cmd_result = true;
+        break;
+    }
+    AT_cmd_time++;
+    }
+    if (AT_cmd_result == true) {
+        digitalWrite(LED_VM, LOW);
+        digitalWrite(LED_VD, HIGH);
+        Serial.println("OK");
+        AT_cmd_time = 0;
+    }
+    if (AT_cmd_result == false) {
+        digitalWrite(LED_VD, LOW);
+        digitalWrite(LED_VM, HIGH);
+        Serial.println("Falhou");
+        AT_cmd_time = 0;
+    }
+    AT_cmd_result = false;
+}
+
+void enviarDados(float t, float u, float p) {
+    String url = "GET /registrar/?nome=";
+    url += ESTACAO;
+    url += "&cep=";
+    url += CEP;
+    url += "&t=";
+    url += t;
+    url += "&u=";
+    url += u;
+    url += "&p=";
+    url += p;
+    url += "&lab=clima HTTP/1.1";
+
+    Serial.print("Abrindo conexao... ");
+    enviarComandoAT("AT+CIPSTART=\"TCP\",\"" + SERVIDOR + "\"," + PORTA, 30, "OK");
+    Serial.print("Iniciando envio... ");
+    enviarComandoAT("AT+CIPSEND=" + String(url.length()), 5, ">");
+    Serial.print("Enviando dados... ");
+    enviarComandoAT(url, 10, "SEND OK");
+    Serial.print("Fechando conexao... ");
+    enviarComandoAT("AT+CIPCLOSE", 5, "CLOSED");
+    digitalWrite(LED_VD, LOW);
+    digitalWrite(LED_VM, LOW);
+    Serial.print("Aguardando " + String(writeInterval/1000) + "s... ");
+    delay(writeInterval);
+    Serial.println("OK");
+}</code>
+    </pre>
+    <div class="alert alert-warning d-flex align-items-start" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="32" height="32" role="img" aria-label="Info:"><use xlink:href="#easel-fill"/></svg>
+        <span>Para concluir este projeto didático, destaque com os alunos a importância da tecnologia e da inovação no estudo da física. Ao integrarmos conceitos de programação, eletrônica e ciências, proporcionamos uma experiência de aprendizagem prática e envolvente.</span>
+    </div>
+    <div class="border-start border-4 border-warning rounded-1 bg-white p-3 ">
+        <span>Que esta jornada inspire futuras explorações e resulte em contribuições significativas!</span>
+    </div>
+</div>
+{% endblock %}
