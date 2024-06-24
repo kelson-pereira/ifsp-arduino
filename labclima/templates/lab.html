@@ -273,12 +273,12 @@ void loop() {
 
 void enviarComandoAT(String AT_cmd, int AT_cmd_maxTime, char readReplay[]) {
     while (AT_cmd_time < (AT_cmd_maxTime)) {
-    AT.println(AT_cmd);
-    if (AT.find(readReplay)) {
-        AT_cmd_result = true;
-        break;
-    }
-    AT_cmd_time++;
+        AT.println(AT_cmd);
+        if (AT.find(readReplay)) {
+            AT_cmd_result = true;
+            break;
+            }
+        AT_cmd_time++;
     }
     if (AT_cmd_result == true) {
         digitalWrite(LED_VM, LOW);
