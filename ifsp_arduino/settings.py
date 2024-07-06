@@ -42,6 +42,7 @@ if not IS_HEROKU_APP:
 # https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-ALLOWED_HOSTS
 if IS_HEROKU_APP:
     ALLOWED_HOSTS = ['labclima-cdf9226ee1c5.herokuapp.com']
+    SECURE_SSL_REDIRECT = False
 else:
     ALLOWED_HOSTS = ["127.0.0.1", "192.168.68.106"]
 
