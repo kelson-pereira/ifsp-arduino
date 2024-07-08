@@ -201,6 +201,7 @@ String CEP = "xxxxxxxx";
 
 int contador;
 boolean sucesso = false;
+boolean debugar = true;
 const unsigned int intervalo = 30000;
 String servidor = "labclima-cdf9226ee1c5.herokuapp.com";
 String porta = "80";
@@ -210,10 +211,12 @@ void setup() {
     AT.begin(9600);
     Serial.print("Iniciando ESP8266... ");
     enviarComando("AT", 5, "OK");
-    Serial.print("Definindo modo... ");
+    Serial.print("Definindo WiFi... ");
     enviarComando("AT+CWMODE=1", 5, "OK");
     Serial.print("Conectando WiFi... ");
     enviarComando("AT+CWJAP=\""+ WIFI +"\",\""+ SENHA +"\"", 10, "OK");
+    Serial.print("Definindo relogio... ");
+    enviarComando("AT+CIPSNTPCFG=1,-3,\"a.ntp.br\",\"b.ntp.br\",\"c.ntp.br\"", 5, "OK");
     Serial.print("Definindo conexao... ");
     enviarComando("AT+CIPMUX=0", 10, "OK");
     pinMode(LED_VM, OUTPUT);
@@ -278,7 +281,7 @@ void loop() {
 }
 
 void enviarComando(String comando, int contador_maximo, char resposta[]) {
-    //Serial.print(comando + " "); // 
+    if (debugar == true) {Serial.print(comando + " ");}
     while (contador &lt; (contador_maximo)) {
         AT.println(comando);
         if (AT.find(resposta)) {
@@ -317,12 +320,14 @@ void enviarDados(float t, float u, float p) {
     url += "User-Agent: Arduino/1.0\r\n";
     url += "Host: ";
     url += servidor;
-    url += "\r\n\r\n";
+    url += "\r\n";
+    url += "Accept: */*\r\n\r\n";
 
     Serial.print("Abrindo conexao... ");
     enviarComando("AT+CIPSTART=\"TCP\",\"" + servidor + "\"," + porta, 30, "OK");
     Serial.print("Iniciando envio... ");
     enviarComando("AT+CIPSEND=" + String(url.length()), 5, ">");
+    if (debugar == true) {Serial.print(url);}
     Serial.print("Enviando dados... ");
     enviarComando(url, 10, "SEND OK");
     Serial.print("Fechando conexao... ");
