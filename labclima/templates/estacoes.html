@@ -19,15 +19,15 @@
             <p class="card-text lh-sm m-0 mb-1 fw-lighter" style="font-size: 14px;">{{registro.datahora|timesince}} atrás</p>
             <div class="d-flex justify-content-between align-items-end">
                 <div>
-                    <p class="card-text lh-sm m-0 fs-3 fw-light">{{registro.temperatura|stringformat:".1f°C"|default:"--"}}</p>
+                    <p class="card-text lh-sm m-0 fs-3 fw-normal">{{registro.temperatura|stringformat:".1f°C"|default:"--"}}</p>
                     <p class="card-text lh-sm fw-light" style="font-size: 12px;"><i class="bi bi-thermometer-half"></i><small>Temperatura</small></p>
                 </div>
                 <div>
-                    <p class="card-text lh-sm m-0 mb-1 fs-6 fw-light">{{registro.umidade|stringformat:".1f%%"|default:"--"}}</p>
+                    <p class="card-text lh-sm m-0 mb-1 fs-6 fw-normal">{{registro.umidade|stringformat:".1f%%"|default:"--"}}</p>
                     <p class="card-text lh-sm fw-light" style="font-size: 12px;"><i class="bi bi-droplet"></i><small>Umidade</small></p>
                 </div>
                 <div>
-                    <p class="card-text lh-sm m-0 mb-1 fs-6 fw-light">{{registro.pressao|stringformat:".1f hPa"|default:"--"}}</p>
+                    <p class="card-text lh-sm m-0 mb-1 fs-6 fw-normal">{{registro.pressao|stringformat:".1f hPa"|default:"--"}}</p>
                     <p class="card-text lh-sm fw-light" style="font-size: 12px;"><i class="bi bi-speedometer2 me-1"></i><small>Pressão</small></p>
                 </div>
             </div>
