@@ -13,7 +13,7 @@
     <body class="h-100 d-flex flex-column flex-grow-1" style="max-width: 100%;">
         <a class="align-self-end pt-4 pe-4" href="javascript:history.back();"><i class="bi bi-x-lg" style="font-size: 20px;"></i></a>
         {% with 'imagens/'|add:src as image_src %}
-        <div class="d-flex flex-wrap flex-grow-1 justify-content-center align-content-center bg-white">
+        <div class="d-flex flex-wrap flex-grow-1 justify-content-center align-content-center m-3">
             <img src="{% static image_src%}" style="max-width: 100%;">
         </div>
         {% endwith %}
