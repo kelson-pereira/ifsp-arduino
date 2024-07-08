@@ -190,26 +190,26 @@ int LED_VD = 9;
 String SSID = "xxxxxxxxxx";
 String PASS = "xxxxxxxxxx";
 
-String SERVIDOR = "x.x.x.x";
-String PORTA = "xxxx";
 String ESTACAO = "LAB-XXXXX";
 String CEP = "xxxxxxxx";
 
-int AT_cmd_time;
-boolean AT_cmd_result = false; 
-const unsigned int writeInterval = 5000;
+int cmd_time;
+boolean cmd_result = false;
+const unsigned int interval = 30000;
+String servidor = "labclima-cdf9226ee1c5.herokuapp.com";
+String porta = "80";
 
 void setup() {
     Serial.begin(9600);
     AT.begin(9600);
     Serial.print("Iniciando ESP8266... ");
-    enviarComandoAT("AT", 5, "OK");
+    enviarComando("AT", 5, "OK");
     Serial.print("Definindo modo... ");
-    enviarComandoAT("AT+CWMODE=1", 5, "OK");
+    enviarComando("AT+CWMODE=1", 5, "OK");
     Serial.print("Conectando WiFi... ");
-    enviarComandoAT("AT+CWJAP=\""+ SSID +"\",\""+ PASS +"\"", 10, "OK");
+    enviarComando("AT+CWJAP=\""+ SSID +"\",\""+ PASS +"\"", 10, "OK");
     Serial.print("Definindo conexao... ");
-    enviarComandoAT("AT+CIPMUX=0", 10, "OK");
+    enviarComando("AT+CIPMUX=0", 10, "OK");
     pinMode(LED_VM, OUTPUT);
     pinMode(LED_VD, OUTPUT);
     dht.begin();
@@ -271,28 +271,29 @@ void loop() {
     digitalWrite(LED_VD, LOW);
 }
 
-void enviarComandoAT(String AT_cmd, int AT_cmd_maxTime, char readReplay[]) {
-    while (AT_cmd_time < (AT_cmd_maxTime)) {
-        AT.println(AT_cmd);
+void enviarComando(String cmd, int cmd_maxTime, char readReplay[]) {
+    //Serial.print(cmd + " ");
+    while (cmd_time < (cmd_maxTime)) {
+        AT.println(cmd);
         if (AT.find(readReplay)) {
-            AT_cmd_result = true;
+            cmd_result = true;
             break;
-            }
-        AT_cmd_time++;
+        }
+        cmd_time++;
     }
-    if (AT_cmd_result == true) {
+    if (cmd_result == true) {
         digitalWrite(LED_VM, LOW);
         digitalWrite(LED_VD, HIGH);
         Serial.println("OK");
-        AT_cmd_time = 0;
+        cmd_time = 0;
     }
-    if (AT_cmd_result == false) {
+    if (cmd_result == false) {
         digitalWrite(LED_VD, LOW);
         digitalWrite(LED_VM, HIGH);
         Serial.println("Falhou");
-        AT_cmd_time = 0;
+        cmd_time = 0;
     }
-    AT_cmd_result = false;
+    cmd_result = false;
 }
 
 void enviarDados(float t, float u, float p) {
@@ -306,20 +307,24 @@ void enviarDados(float t, float u, float p) {
     url += u;
     url += "&p=";
     url += p;
-    url += "&lab=clima HTTP/1.1";
+    url += "&lab=clima HTTP/1.1\r\n";
+    url += "User-Agent: Arduino/1.0\r\n";
+    url += "Host: ";
+    url += servidor;
+    url += "\r\n\r\n";
 
     Serial.print("Abrindo conexao... ");
-    enviarComandoAT("AT+CIPSTART=\"TCP\",\"" + SERVIDOR + "\"," + PORTA, 30, "OK");
+    enviarComando("AT+CIPSTART=\"TCP\",\"" + servidor + "\"," + porta, 30, "OK");
     Serial.print("Iniciando envio... ");
-    enviarComandoAT("AT+CIPSEND=" + String(url.length()), 5, ">");
+    enviarComando("AT+CIPSEND=" + String(url.length()), 5, ">");
     Serial.print("Enviando dados... ");
-    enviarComandoAT(url, 10, "SEND OK");
+    enviarComando(url, 10, "SEND OK");
     Serial.print("Fechando conexao... ");
-    enviarComandoAT("AT+CIPCLOSE", 5, "CLOSED");
+    enviarComando("AT+CIPCLOSE", 5, "CLOSED");
     digitalWrite(LED_VD, LOW);
     digitalWrite(LED_VM, LOW);
-    Serial.print("Aguardando " + String(writeInterval/1000) + "s... ");
-    delay(writeInterval);
+    Serial.print("Aguardando " + String(interval/1000) + "s... ");
+    delay(interval);
     Serial.println("OK");
 }</code>
     </pre>
