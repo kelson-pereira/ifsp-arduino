@@ -193,9 +193,9 @@ String SENHA = "xxxxxxxxxx";
 String ESTACAO = "LAB-XXXXX";
 String CEP = "xxxxxxxx";
 
-int cmd_time;
-boolean cmd_result = false;
-const unsigned int interval = 30000;
+int contador;
+boolean sucesso = false;
+const unsigned int intervalo = 30000;
 String servidor = "labclima-cdf9226ee1c5.herokuapp.com";
 String porta = "80";
 
@@ -271,29 +271,29 @@ void loop() {
     digitalWrite(LED_VD, LOW);
 }
 
-void enviarComando(String cmd, int cmd_maxTime, char readReplay[]) {
-    //Serial.print(cmd + " "); // Imprimir para debug
-    while (cmd_time < (cmd_maxTime)) {
-        AT.println(cmd);
-        if (AT.find(readReplay)) {
-            cmd_result = true;
+void enviarComando(String comando, int contador_maximo, char resposta[]) {
+    //Serial.print(comando + " "); // 
+    while (contador &lt; (contador_maximo)) {
+        AT.println(comando);
+        if (AT.find(resposta)) {
+            sucesso = true;
             break;
         }
-        cmd_time++;
+        contador++;
     }
-    if (cmd_result == true) {
+    if (sucesso == true) {
         digitalWrite(LED_VM, LOW);
         digitalWrite(LED_VD, HIGH);
         Serial.println("OK");
-        cmd_time = 0;
+        contador = 0;
     }
-    if (cmd_result == false) {
+    if (sucesso == false) {
         digitalWrite(LED_VD, LOW);
         digitalWrite(LED_VM, HIGH);
         Serial.println("Falhou");
-        cmd_time = 0;
+        contador = 0;
     }
-    cmd_result = false;
+    sucesso = false;
 }
 
 void enviarDados(float t, float u, float p) {
@@ -323,8 +323,8 @@ void enviarDados(float t, float u, float p) {
     enviarComando("AT+CIPCLOSE", 5, "CLOSED");
     digitalWrite(LED_VD, LOW);
     digitalWrite(LED_VM, LOW);
-    Serial.print("Aguardando " + String(interval/1000) + "s... ");
-    delay(interval);
+    Serial.print("Aguardando " + String(intervalo/1000) + "s... ");
+    delay(intervalo);
     Serial.println("OK");
 }</code>
     </pre>
