@@ -19,10 +19,13 @@ from django.urls import path
 from labclima import views
 from django.urls import re_path
 from django.views.static import serve
+from django.views.generic.base import RedirectView
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.conf import settings
 
 urlpatterns = [
     #path('admin/', admin.site.urls),
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('imagens/favicon.ico'))),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     path('estacoes/', views.estacoes, name='estacoes'),
     path('registrar/', views.registrar, name='registrar'),
