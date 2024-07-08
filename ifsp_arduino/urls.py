@@ -27,9 +27,10 @@ urlpatterns = [
     #path('admin/', admin.site.urls),
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('imagens/favicon.ico'))),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
-    path('estacoes/', views.estacoes, name='estacoes'),
-    path('registrar/', views.registrar, name='registrar'),
-    path('registros/', views.registros, name='registros'),
-    path('apagar/', views.apagar, name='apagar'),
     path('', views.lab, name='lab'),
+    path('estacoes/', views.estacoes, name='estacoes'),
+    path('registros/', views.registros, name='registros'),
+    path('registrar/', views.registrar, name='registrar'),
+    path('apagar/', views.apagar, name='apagar'),
+    path('imagem/<str:img>', views.imagem, name="imagem")
 ]

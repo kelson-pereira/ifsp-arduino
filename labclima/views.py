@@ -8,11 +8,21 @@ from datetime import timedelta
 from .models import Registro
 import time
 
+# Exibe página princibal do labclima
+def lab(request):
+    return render(request, 'lab.html')
+
 # Exibe a página estações
 def estacoes(request):
     seven_days = timezone.now() - timedelta(days = 7)
     registros = {'registros': Registro.objects.filter(datahora__gte=seven_days).values('ident', 'datahora', 'nome', 'temperatura', 'umidade', 'pressao').order_by('datahora').reverse()}
     return render(request, 'estacoes.html', registros)
+
+# Lista os registros do banco de dados
+def registros(request):
+    seven_days = timezone.now() - timedelta(days = 7)
+    registros = {'registros': Registro.objects.filter(datahora__gte=seven_days).values('ident', 'datahora', 'nome', 'temperatura', 'umidade', 'pressao').order_by('datahora').reverse()}
+    return render(request, 'registros.html', registros)
 
 # Salva o novo registro no banco de dados e apaga o antigo.
 def registrar(request):
@@ -53,12 +63,8 @@ def apagar(request):
             messages.error(request, 'O registro não pôde ser apagado.', extra_tags='text-bg-danger')
     return HttpResponseRedirect(reverse('registros'))
 
-# Lista os registros do banco de dados
-def registros(request):
-    seven_days = timezone.now() - timedelta(days = 7)
-    registros = {'registros': Registro.objects.filter(datahora__gte=seven_days).values('ident', 'datahora', 'nome', 'temperatura', 'umidade', 'pressao').order_by('datahora').reverse()}
-    return render(request, 'registros.html', registros)
-
-# Exibe página do laboratório
-def lab(request):
-    return render(request, 'lab.html')
+# Exibe a imagem
+def imagem(request, img):
+    args = {}
+    args['src'] = img
+    return render(request, 'imagem.html', args)

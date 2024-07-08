@@ -17,7 +17,7 @@
     <p><small><span class="text-nowrap me-2"><i class="bi bi-calendar pe-1"></i>08/07/2024</span><span class="text-nowrap me-2"><i class="bi bi-person-fill pe-1"></i>Kelson Pereira</span><span class="text-nowrap me-2"><a target="_blank" href="https://www.youtube.com/watch?v=ryFdngPUVmE"><i class="bi bi-youtube pe-1"></i>Projeto Didático</a></span></small></p>
     <p>Este projeto didático tem como objetivo guiar alunos em sala de aula ou em laboratório na construção de uma mini estação meteorológica utilizando a plataforma de prototipagem de código aberto Arduino. Este dispositivo será capaz de medir parâmetros atmosféricos essenciais, como temperatura, umidade e pressão.</p>
     <div class="card shadow border-0 rounded p-0 align-self-center mb-4" style="max-width:100%; width: 60rem; height:auto">
-        <a href="{% static 'imagens/mini-estacao-meteorologica.jpg' %}"><img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/mini-estacao-meteorologica.jpg' %}"></a>
+        <a href="{% url 'imagem' 'mini-estacao-meteorologica.jpg' %}"><img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/mini-estacao-meteorologica.jpg' %}"></a>
         <div class="card-body">
             <p class="card-text fs-6 lh-sm text-center"><small>Figura 1: <strong>Demonstração da mini estação meteorológica com Arduino</strong><br><small>Fonte: Foto de autoria própria</small></small></p>
         </div>
@@ -33,55 +33,55 @@
     <p>A mini estação meteorológica é composta por sensores que capturam dados ambientais e por um microcontrolador Arduino Uno que processa essas informações. Utilizaremos o sensor DHT22 para medir temperatura e umidade, e o sensor BMP280 para medir a pressão atmosférica. Além disso, o projeto inclui a programação do Arduino por meio da linguagem C/C++ para ler os dados dos sensores e transferir para um servidor através do módulo Wi-Fi ESP8266 (ESP-01).</p>
     <div class="d-flex flex-wrap justify-content-center align-content-start flex-grow-1 gap-4 mb-4">
         <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
-            <a href="{% static 'imagens/arduino-uno-r3.png' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/arduino-uno-r3.png' %}"></a>
+            <a href="{% url 'imagem' 'arduino-uno-r3.png' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/arduino-uno-r3.png' %}"></a>
             <div class="card-body">
                 <p class="card-text fs-6 lh-1 text-center"><small>Microcontrolador Arduino Uno<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/placa-arduino/placa-uno-r3">robocore.net</a></small></small></p>
             </div>
         </div>
         <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
-            <a href="{% static 'imagens/dht22.png' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/dht22.png' %}"></a>
+            <a href="{% url 'imagem' 'dht22.png' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/dht22.png' %}"></a>
             <div class="card-body">
                 <p class="card-text fs-6 lh-1 text-center"><small>Sensor DHT22 (AM2302)<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/sensor-ambiente/sensor-de-temperatura-e-umidade-dht22">robocore.net</a></small></small></p>
             </div>
         </div>
         <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
-            <a href="{% static 'imagens/bmp280.png' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/bmp280.png' %}"></a>
+            <a href="{% url 'imagem' 'bmp280.png' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/bmp280.png' %}"></a>
             <div class="card-body">
                 <p class="card-text fs-6 lh-1 text-center"><small>Sensor BMP280<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/sensor-ambiente/sensor-de-pressao-e-temperatura-bmp280">robocore.net</a></small></small></p>
             </div>
         </div>
         <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
-            <a href="{% static 'imagens/esp8266.png' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/esp8266.png' %}"></a>
+            <a href="{% url 'imagem' 'esp8266.png' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/esp8266.png' %}"></a>
             <div class="card-body">
                 <p class="card-text fs-6 lh-1 text-center"><small>Módulo Wi-Fi ESP8266 (ESP-01)<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/wifi/modulo-wifi-esp8266">robocore.net</a></small></small></p>
             </div>
         </div>
         <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
-            <a href="{% static 'imagens//protoboard.jpg' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/protoboard.jpg' %}"></a>
+            <a href="{% url 'imagem' 'protoboard.jpg' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/protoboard.jpg' %}"></a>
             <div class="card-body">
                 <p class="card-text fs-6 lh-1 text-center"><small>Protoboard para Arduino Uno<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/shields-arduino/arduino-shield-protoshield">robocore.net</a></small></small></p>
             </div>
         </div>
         <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
-            <a href="{% static 'imagens/leds.jpg' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/leds.jpg' %}"></a>
+            <a href="{% url 'imagem' 'leds.jpg' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/leds.jpg' %}"></a>
             <div class="card-body">
                 <p class="card-text fs-6 lh-1 text-center"><small>LEDs difuso 5mm (vermelho e verde)<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/display-led/led-difuso-5mm-vermelho-10-unidades">robocore.net</a></small></small></p>
             </div>
         </div>
         <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
-            <a href="{% static 'imagens/resistores.jpg' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/resistores.jpg' %}"></a>
+            <a href="{% url 'imagem' 'resistores.jpg' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/resistores.jpg' %}"></a>
             <div class="card-body">
                 <p class="card-text fs-6 lh-1 text-center"><small>Resistores 1/4W (2x220Ω e 1x4.7KΩ)<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/resistor-potenciometro/kit-resistor">robocore.net</a></small></small></p>
             </div>
         </div>
         <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
-            <a href="{% static 'imagens/jumpers.png' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/jumpers.png' %}"></a>
+            <a href="{% url 'imagem' 'jumpers.png' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/jumpers.png' %}"></a>
             <div class="card-body">
                 <p class="card-text fs-6 lh-1 text-center"><small>Fios para conexões (jumpers)<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/cabo/jumpers-macho-femea-x40-unidades">robocore.net</a></small></small></p>
             </div>
         </div>
         <div class="card shadow border-0 rounded p-0" style="width: 18rem; height:16rem;">
-            <a href="{% static 'imagens/cabo-usb-a-b.png' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/cabo-usb-a-b.png' %}"></a>
+            <a href="{% url 'imagem' 'cabo-usb-a-b.png' %}"><img class="card-img-top px-2 pt-3" style="height:12rem; object-fit: contain;" src="{% static 'imagens/cabo-usb-a-b.png' %}"></a>
             <div class="card-body">
                 <p class="card-text fs-6 lh-1 text-center"><small>Cabo USB tipo AB (Arduino)<br><small>Fonte: <a target="_blank" href="https://www.robocore.net/cabo/cabo-usb-ab-30cm">robocore.net</a></small></small></p>
             </div>
@@ -99,7 +99,7 @@
         <span>Envolva os alunos para explorar outros projetos possíveis usando esta plataforma e então, apresente os recursos do Arduino Uno sendo seus principais componentes, conectores, portas, alimentação, LEDs, etc.</span>
     </div>
     <div class="card shadow border-0 rounded p-0 align-self-center mb-4" style="max-width:100%; width: 60rem; height:auto">
-        <a href="{% static 'imagens/arduino-uno_bb.png' %}"><img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/arduino-uno_bb.png' %}"></a>
+        <a href="{% url 'imagem' 'arduino-uno_bb.png' %}"><img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/arduino-uno_bb.png' %}"></a>
         <div class="card-body">
             <p class="card-text fs-6 lh-1 text-center"><small>Figura 2: <strong>Conhecendo o Arduino Uno</strong><br><small>Fonte: Imagem gerada a partir do simulador Fritzing</small></small></p>
         </div>
@@ -117,7 +117,7 @@
         <span>Conduza os alunos para realizar a montagem do sensor conforme o esquema acima. Use a protoboard para facilitar a conexão entre o sensor, o resistor e as portas do Arduino através dos fios de conexão.</span>
     </div>
     <div class="card shadow border-0 rounded p-0 align-self-center mb-4" style="max-width:100%; width: 60rem; height:auto">
-        <a href="{% static 'imagens/arduino-dht22_bb.png' %}"><img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/arduino-dht22_bb.png' %}"></a>
+        <a href="{% url 'imagem' 'arduino-dht22_bb.png' %}"><img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/arduino-dht22_bb.png' %}"></a>
         <div class="card-body">
             <p class="card-text fs-6 lh-1 text-center"><small>Figura 3: <strong>Montagem do sensor DHT22 com Arduino Uno</strong><br><small>Fonte: Imagem gerada a partir do simulador Fritzing</small></small></p>
         </div>
@@ -132,7 +132,7 @@
         <span>Conduza os alunos para realizar a montagem do sensor conforme o esquema abaixo. Use a protoboard para facilitar a conexão entre o sensor e as portas do Arduino através dos fios de conexão.</span>
     </div>
     <div class="card shadow border-0 rounded p-0 align-self-center mb-4" style="max-width:100%; width: 60rem; height:auto">
-        <a href="{% static 'imagens/arduino-bmp280_bb.png' %}"><img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/arduino-bmp280_bb.png' %}"></a>
+        <a href="{% url 'imagem' 'arduino-bmp280_bb.png' %}"><img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/arduino-bmp280_bb.png' %}"></a>
         <div class="card-body">
             <p class="card-text fs-6 lh-1 text-center"><small>Figura 4: <strong>Montagem do sensor BMP280 com Arduino Uno</strong><br><small>Fonte: Imagem gerada a partir do simulador Fritzing</small></small></p>
         </div>
@@ -148,7 +148,7 @@
         <span>Conduza os alunos para realizar montagem a do módulo conforme o esquema acima. Use a protoboard para facilitar a conexão entre o módulo e as portas do Arduino através dos fios de conexão.</span>
     </div>
     <div class="card shadow border-0 rounded p-0 align-self-center mb-4" style="max-width:100%; width: 60rem; height:auto">
-        <a href="{% static 'imagens/arduino-esp8266_bb.png' %}"><img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/arduino-esp8266_bb.png' %}"></a>
+        <a href="{% url 'imagem' 'arduino-esp8266_bb.png' %}"><img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/arduino-esp8266_bb.png' %}"></a>
         <div class="card-body">
             <p class="card-text fs-6 lh-1 text-center"><small>Figura 5: <strong>Montagem do módulo ESP8266 (ESP-01) com Arduino Uno</strong><br><small>Fonte: Imagem gerada a partir do simulador Fritzing</small></small></p>
         </div>
@@ -163,7 +163,7 @@
         <span>Conduza os alunos para realizar montagem a do módulo conforme o esquema acima. Use a protoboard para facilitar a conexão entre o módulo e as portas do Arduino através dos fios de conexão.</span>
     </div>
     <div class="card shadow border-0 rounded p-0 align-self-center mb-4" style="max-width:100%; width: 60rem; height:auto">
-        <a href="{% static 'imagens/arduino-estacao_bb.png' %}"><img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/arduino-estacao_bb.png' %}"></a>
+        <a href="{% url 'imagem' 'arduino-estacao_bb.png' %}"><img class="card-img-top px-3 pt-3" style="object-fit: contain;" src="{% static 'imagens/arduino-estacao_bb.png' %}"></a>
         <div class="card-body">
             <p class="card-text fs-6 lh-1 text-center"><small>Figura 6: <strong>Montagem final da mini estação meteorológica com Arduino Uno</strong><br><small>Fonte: Imagem gerada a partir do simulador Fritzing</small></small></p>
         </div>
