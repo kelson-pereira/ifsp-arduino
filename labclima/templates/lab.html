@@ -187,9 +187,9 @@ Adafruit_BMP280 bmp;
 int LED_VM = 8;
 int LED_VD = 9;
 
-String SSID = "xxxxxxxxxx";
-String PASS = "xxxxxxxxxx";
-
+// Defina aqui informações do WiFi e da estação
+String WIFI = "xxxxxxxxxx";
+String SENHA = "xxxxxxxxxx";
 String ESTACAO = "LAB-XXXXX";
 String CEP = "xxxxxxxx";
 
@@ -207,7 +207,7 @@ void setup() {
     Serial.print("Definindo modo... ");
     enviarComando("AT+CWMODE=1", 5, "OK");
     Serial.print("Conectando WiFi... ");
-    enviarComando("AT+CWJAP=\""+ SSID +"\",\""+ PASS +"\"", 10, "OK");
+    enviarComando("AT+CWJAP=\""+ WIFI +"\",\""+ SENHA +"\"", 10, "OK");
     Serial.print("Definindo conexao... ");
     enviarComando("AT+CIPMUX=0", 10, "OK");
     pinMode(LED_VM, OUTPUT);
@@ -272,7 +272,7 @@ void loop() {
 }
 
 void enviarComando(String cmd, int cmd_maxTime, char readReplay[]) {
-    //Serial.print(cmd + " ");
+    //Serial.print(cmd + " "); // Imprimir para debug
     while (cmd_time < (cmd_maxTime)) {
         AT.println(cmd);
         if (AT.find(readReplay)) {
