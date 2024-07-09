@@ -199,14 +199,14 @@ String SENHA = "xxxxxxxxxx";
 String ESTACAO = "LAB-XXXX";
 String CEP = "xxxxxxxx";
 
-int contador;
-boolean sucesso = false;
-boolean debugar = false;
-const unsigned int intervalo = 30000;
 String servidor = "labclima-cdf9226ee1c5.herokuapp.com";
 String porta = "80";
+const unsigned int intervalo = 30000;
+boolean debugar = false;
 
 void setup() {
+    pinMode(LED_VM, OUTPUT);
+    pinMode(LED_VD, OUTPUT);
     Serial.begin(9600);
     AT.begin(9600);
     Serial.print("Iniciando ESP8266... ");
@@ -219,27 +219,23 @@ void setup() {
     enviarComando("AT+CIPSNTPCFG=1,-3,\"a.ntp.br\",\"b.ntp.br\",\"c.ntp.br\"", 5, "OK");
     Serial.print("Definindo conexao... ");
     enviarComando("AT+CIPMUX=0", 10, "OK");
-    pinMode(LED_VM, OUTPUT);
-    pinMode(LED_VD, OUTPUT);
     dht.begin();
     delay(2000);
 }
 
 void loop() {
     bool enviar = true;
+    float t1, t2, u, p;
     Serial.print("Lendo DHT22... ");
-    float u = dht.readHumidity();
-    float t = dht.readTemperature();
-    if (isnan(u) || isnan(t)) {
-        digitalWrite(LED_VM, HIGH);
-        Serial.println("Falhou");
+    t1 = dht.readTemperature();
+    u = dht.readHumidity();
+    if (isnan(t1) || isnan(u)) {
+        piscar(false);
         enviar = false;
-        delay(2000);
     } else {
-        digitalWrite(LED_VD, HIGH);
-        Serial.println("OK");
+        piscar(true);
         Serial.print("Temperatura: ");
-        Serial.print(t);
+        Serial.print(t1);
         Serial.println("°C");
         Serial.print("Umidade: ");
         Serial.print(u);
@@ -247,62 +243,45 @@ void loop() {
     }
     Serial.print("Iniciando BMP280... ");
     if (!bmp.begin()) {
-        digitalWrite(LED_VM, HIGH);
-        Serial.println("Falhou");
+        piscar(false);
         enviar = false;
-        delay(2000);
     } else {
-        digitalWrite(LED_VD, HIGH);
-        Serial.println("OK");
-    }
-    float t2 = bmp.readTemperature();
-    float p = bmp.readPressure() / 100;
-    Serial.print("Lendo BMP280... ");
-    if (isnan(t2) || isnan(p)) {
-        digitalWrite(LED_VM, HIGH);
-        Serial.println("Falhou");
-        enviar = false;
-        delay(2000);
-    } else {
-        digitalWrite(LED_VD, HIGH);
-        Serial.println("OK");
-        Serial.print("Temperatura: ");
-        Serial.print(t2);
-        Serial.println("°C");
-        Serial.print("Pressao: ");
-        Serial.print(p);
-        Serial.println("hPa");
+        piscar(true);
+        t2 = bmp.readTemperature();
+        p = bmp.readPressure() / 100;
+        Serial.print("Lendo BMP280... ");
+        if (isnan(t2) || isnan(p)) {
+                piscar(false);
+                enviar = false;
+        } else {
+            piscar(true);
+            Serial.print("Temperatura: ");
+            Serial.print(t2);
+            Serial.println("°C");
+            Serial.print("Pressao: ");
+            Serial.print(p);
+            Serial.println("hPa");
+        }
     }
     if (enviar) {
-        enviarDados(t, u, p);
+        enviarDados((t1 + t2)/2, u, p);
     }
-    digitalWrite(LED_VM, LOW);
-    digitalWrite(LED_VD, LOW);
 }
 
 void enviarComando(String comando, int contador_maximo, char resposta[]) {
-    if (debugar == true) {Serial.print(comando + " ");}
-    while (contador &lt; (contador_maximo)) {
-        AT.println(comando);
+    boolean sucesso = false;
+    int contador = 0;
+    if (debugar) {Serial.print(comando + " ");}
+    AT.println(comando);
+    while (contador &lt; contador_maximo) {
+        delay(50);
         if (AT.find(resposta)) {
             sucesso = true;
             break;
         }
         contador++;
     }
-    if (sucesso == true) {
-        digitalWrite(LED_VM, LOW);
-        digitalWrite(LED_VD, HIGH);
-        Serial.println("OK");
-        contador = 0;
-    }
-    if (sucesso == false) {
-        digitalWrite(LED_VD, LOW);
-        digitalWrite(LED_VM, HIGH);
-        Serial.println("Falhou");
-        contador = 0;
-    }
-    sucesso = false;
+    piscar(sucesso);
 }
 
 void enviarDados(float t, float u, float p) {
@@ -322,7 +301,7 @@ void enviarDados(float t, float u, float p) {
     url += servidor;
     url += "\r\n";
     url += "Accept: */*\r\n\r\n";
-
+  
     Serial.print("Abrindo conexao... ");
     enviarComando("AT+CIPSTART=\"TCP\",\"" + servidor + "\"," + porta, 30, "OK");
     Serial.print("Iniciando envio... ");
@@ -331,12 +310,23 @@ void enviarDados(float t, float u, float p) {
     Serial.print("Enviando dados... ");
     enviarComando(url, 10, "SEND OK");
     Serial.print("Fechando conexao... ");
-    enviarComando("AT+CIPCLOSE", 5, "CLOSED");
-    digitalWrite(LED_VD, LOW);
-    digitalWrite(LED_VM, LOW);
+    enviarComando("AT+CIPCLOSE", 10, "OK");
     Serial.print("Aguardando " + String(intervalo/1000) + "s... ");
     delay(intervalo);
     Serial.println("OK");
+}
+
+void piscar(boolean status) {
+    if (status) {
+        Serial.println("OK");
+        digitalWrite(LED_VD, HIGH);
+    } else {
+        Serial.println("Falhou");
+        digitalWrite(LED_VM, HIGH);
+    }
+    delay(100);
+    digitalWrite(LED_VD, LOW);
+    digitalWrite(LED_VM, LOW);
 }</code>
     </pre>
     <div class="alert alert-warning d-flex align-items-start" role="alert">
