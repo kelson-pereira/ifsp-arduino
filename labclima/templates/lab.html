@@ -207,8 +207,8 @@ boolean debugar = false;
 void setup() {
     pinMode(LED_VM, OUTPUT);
     pinMode(LED_VD, OUTPUT);
-    Serial.begin(9600);
     AT.begin(9600);
+    Serial.begin(9600);
     Serial.print("Iniciando ESP8266... ");
     enviarComando("AT", 5, "OK");
     Serial.print("Definindo WiFi... ");
@@ -251,8 +251,8 @@ void loop() {
         p = bmp.readPressure() / 100;
         Serial.print("Lendo BMP280... ");
         if (isnan(t2) || isnan(p)) {
-                piscarLed(false);
-                enviar = false;
+            piscarLed(false);
+            enviar = false;
         } else {
             piscarLed(true);
             Serial.print("Temperatura: ");
