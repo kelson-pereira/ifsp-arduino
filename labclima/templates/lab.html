@@ -193,7 +193,7 @@ Adafruit_BMP280 bmp;
 int LED_VM = 8;
 int LED_VD = 9;
 
-// Defina aqui informações do WiFi e da estação
+// Defina aqui as informações do WiFi e da estação
 String WIFI = "xxxxxxxxxx";
 String SENHA = "xxxxxxxxxx";
 String ESTACAO = "LAB-XXXX";
@@ -230,10 +230,10 @@ void loop() {
     t1 = dht.readTemperature();
     u = dht.readHumidity();
     if (isnan(t1) || isnan(u)) {
-        piscar(false);
+        piscarLed(false);
         enviar = false;
     } else {
-        piscar(true);
+        piscarLed(true);
         Serial.print("Temperatura: ");
         Serial.print(t1);
         Serial.println("°C");
@@ -243,18 +243,18 @@ void loop() {
     }
     Serial.print("Iniciando BMP280... ");
     if (!bmp.begin()) {
-        piscar(false);
+        piscarLed(false);
         enviar = false;
     } else {
-        piscar(true);
+        piscarLed(true);
         t2 = bmp.readTemperature();
         p = bmp.readPressure() / 100;
         Serial.print("Lendo BMP280... ");
         if (isnan(t2) || isnan(p)) {
-                piscar(false);
+                piscarLed(false);
                 enviar = false;
         } else {
-            piscar(true);
+            piscarLed(true);
             Serial.print("Temperatura: ");
             Serial.print(t2);
             Serial.println("°C");
@@ -281,7 +281,7 @@ void enviarComando(String comando, int contador_maximo, char resposta[]) {
         }
         contador++;
     }
-    piscar(sucesso);
+    piscarLed(sucesso);
 }
 
 void enviarDados(float t, float u, float p) {
@@ -316,7 +316,7 @@ void enviarDados(float t, float u, float p) {
     Serial.println("OK");
 }
 
-void piscar(boolean status) {
+void piscarLed(boolean status) {
     if (status) {
         Serial.println("OK");
         digitalWrite(LED_VD, HIGH);
